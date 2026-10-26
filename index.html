@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traço Técnico — Projetos e Plantas em AutoCAD</title>
+<meta name="description" content="Planta baixa, projeto arquitetônico, regularização de imóveis, combate a incêndio, layout de canteiro e conversão para DWG. Atendimento 100% online.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' fill='%231336F0'/%3E%3Crect x='3' y='3' width='30' height='30' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M9 27V9h18' fill='none' stroke='%23FFD21F' stroke-width='3.5'/%3E%3Cpath d='M14 27h13V14' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --blue:#1336F0; --yellow:#FFD21F; --orange:#FF5A1F; --ink:#0A1024; --white:#FFFFFF;
+  --muted:#36405A; --soft:#E6EBFF; --soft2:#C9D1F5;
+  --display:'Archivo',system-ui,sans-serif; --sans:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--ink)} a:hover{color:var(--blue)}
+img,svg{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.grid-bg{background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:40px 40px}
+.tag{display:inline-block;font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.08em;padding:6px 12px;margin:0 0 14px}
+h1,h2,h3{font-family:var(--display);margin:0}
+h2.title{font-weight:900;font-size:clamp(34px,4.6vw,60px);line-height:1.02;letter-spacing:-.03em}
+.lead{font-size:18px;line-height:1.55;color:var(--muted);margin:0}
+section.block{padding:104px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:14px 28px;font-weight:700;font-size:18px;text-decoration:none;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transition:transform .12s, box-shadow .12s;cursor:pointer;font-family:var(--sans)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink);color:inherit}
+.btn:active{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.btn-yellow{background:var(--yellow);color:var(--ink)}
+.btn-white{background:var(--white);color:var(--ink)}
+.btn-blue{background:var(--blue);color:var(--white)} .btn-blue:hover{color:var(--white)}
+.btn-ink{background:var(--ink);color:var(--white);box-shadow:none;border-color:var(--ink)} .btn-ink:hover{color:var(--white);box-shadow:none;transform:none;opacity:.92}
+
+/* Cabeçalho */
+.top{background-color:var(--blue);color:var(--white)}
+header{border-bottom:2px solid rgba(255,255,255,.25)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--white);font-family:var(--display);font-weight:900;font-size:21px}
+.brand:hover{color:var(--white)}
+.menu{display:flex;flex-wrap:wrap;align-items:center;gap:8px 26px;font-weight:600;font-size:15px}
+.menu a{color:var(--white);text-decoration:none}
+.menu a:hover{text-decoration:underline}
+.menu .btn{min-height:46px;padding:10px 18px;font-size:15px;box-shadow:4px 4px 0 var(--ink)}
+
+/* Hero */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:80px 24px 112px}
+.hero-text{flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:26px}
+.hero h1{font-weight:900;font-size:clamp(42px,6.2vw,84px);line-height:.98;letter-spacing:-.035em}
+.hl{background:var(--yellow);color:var(--ink);padding:0 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero p{font-size:20px;line-height:1.55;color:var(--soft);margin:0;max-width:560px}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.chips span{font-family:var(--mono);font-weight:600;font-size:14px;border:2px solid var(--white);padding:8px 14px}
+.hero-art{flex:1 1 420px;min-width:0;padding:16px 16px 0 0}
+.plan-card{background:var(--ink);padding:28px;border:3px solid var(--ink);box-shadow:12px 12px 0 var(--yellow);transform:rotate(-1.5deg)}
+.plan-card p{margin:18px 0 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--soft2);border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
+
+/* Faixa */
+.band{background:var(--yellow);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.band .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;padding:22px 24px;font-family:var(--display);font-weight:800;font-size:18px}
+
+/* Serviços */
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px}
+.sec-head > div{max-width:700px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:28px}
+.card{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:30px 28px;background:var(--white);display:flex;flex-direction:column;gap:16px}
+.card .code{align-self:flex-start;font-family:var(--mono);font-weight:600;font-size:13px;padding:6px 10px;border:2px solid var(--ink)}
+.card h3{font-weight:800;font-size:24px;line-height:1.15}
+.card p{margin:0;font-size:16px;line-height:1.55;color:var(--muted)}
+.c-blue{background:var(--blue);color:var(--white)} .c-yellow{background:var(--yellow);color:var(--ink)} .c-orange{background:var(--orange);color:var(--ink)}
+.audience{padding:0 0 104px}
+.audience p{font-family:var(--display);font-weight:800;font-size:22px;margin:0 0 18px}
+.pills{display:flex;flex-wrap:wrap;gap:14px}
+.pills span{background:var(--ink);color:var(--white);padding:14px 20px;font-size:16px;font-weight:600}
+
+/* Processo */
+.dark{background:var(--ink);color:var(--white)}
+.steps{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:36px}
+.steps li{border-top:4px solid var(--yellow);padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.steps .n{font-family:var(--display);font-weight:900;font-size:64px;line-height:.9;color:var(--yellow)}
+.steps h3{font-weight:800;font-size:23px}
+.steps p{margin:0;font-size:16px;line-height:1.55;color:var(--soft2)}
+
+/* Pacotes */
+.plans-sec{background-color:var(--blue);color:var(--white);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:32px;margin-top:56px}
+.plan{border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink);background:var(--white);color:var(--ink);padding:36px 32px;display:flex;flex-direction:column;gap:20px}
+.plan.featured{background:var(--yellow)}
+.plan .ptag{align-self:flex-start;font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.06em;background:var(--ink);color:var(--white);padding:6px 10px}
+.plan h3{font-weight:900;font-size:30px}
+.plan .price{margin:0;font-family:var(--display);font-weight:800;font-size:30px}
+.plan ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:16px;font-weight:500;line-height:1.45;flex-grow:1}
+.plan .btn-ink{width:100%}
+
+/* FAQ */
+.faq{display:flex;flex-wrap:wrap;gap:56px}
+.faq > div:first-child{flex:1 1 300px;min-width:0}
+.faq-list{flex:2 1 520px;min-width:0;display:flex;flex-direction:column;gap:16px}
+details{border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:20px 24px;background:var(--white)}
+summary{cursor:pointer;list-style:none;font-family:var(--display);font-weight:800;font-size:19px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';color:var(--blue);font-weight:900;font-size:24px;line-height:1}
+details[open] summary::after{content:'–'}
+details p{margin:14px 0 0;font-size:16px;line-height:1.6;color:var(--muted)}
+
+/* Orçamento */
+.quote{background:var(--yellow);border-top:3px solid var(--ink)}
+.quote .wrap{display:flex;flex-wrap:wrap;gap:56px}
+.quote-text{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:22px}
+.quote-text h2{font-weight:900;font-size:clamp(38px,5vw,68px);line-height:.98;letter-spacing:-.035em}
+.quote-text .lead{color:var(--ink)}
+.contact{display:flex;flex-direction:column;gap:14px;margin-top:6px;font-size:17px;align-items:flex-start}
+.contact .btn-ink{min-height:52px;font-size:17px;padding:12px 20px}
+.contact a.mail{font-weight:700}
+form.qform{flex:1.3 1 440px;min-width:0;background:var(--white);border:3px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:36px 32px;display:flex;flex-direction:column;gap:20px}
+.row{display:flex;flex-wrap:wrap;gap:20px}
+.row > label{flex:1 1 200px}
+.qform label{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:700}
+.qform input,.qform select,.qform textarea{font:inherit;font-size:16px;font-weight:400;border:2px solid var(--ink);background:var(--white);color:var(--ink);padding:12px 14px;min-height:50px;width:100%}
+.qform textarea{resize:vertical;min-height:120px}
+.qform input:focus,.qform select:focus,.qform textarea:focus{outline:3px solid var(--blue);outline-offset:1px}
+.req{color:#B3260B}
+.files{border:2px dashed var(--ink);background:#F3F5FF;padding:18px;display:flex;flex-direction:column;gap:12px}
+.files p{margin:0;font-size:14px;line-height:1.5;color:var(--muted);font-weight:400}
+.files input[type=file]{border:none;background:transparent;padding:0;min-height:auto;font-size:14px}
+.hint{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.error{margin:0;font-size:15px;font-weight:600;color:#B3260B;display:none}
+.honey{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.qform button[disabled]{opacity:.6;cursor:wait}
+
+footer{background:var(--ink);color:var(--soft2)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:36px 24px;font-family:var(--mono);font-size:13px}
+footer span{display:flex;align-items:center;gap:10px}
+
+@media (max-width:640px){
+  section.block{padding:72px 0}
+  .hero{padding:48px 24px 80px;gap:48px}
+  .menu{gap:6px 18px}
+  form.qform{padding:28px 20px;box-shadow:8px 8px 0 var(--ink)}
+  .plan-card{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="top grid-bg">
+<header>
+<div class="wrap nav" style="padding:18px 24px">
+<a class="brand" href="#topo">
+<svg width="40" height="40" viewBox="0 0 36 36" aria-hidden="true"><rect x="1" y="1" width="34" height="34" fill="none" stroke="#FFFFFF" stroke-width="2"/><path d="M8 28 L8 8 L28 8" fill="none" stroke="#FFD21F" stroke-width="3.5"/><path d="M14 28 L28 28 L28 14" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg>
+TRAÇO TÉCNICO
+</a>
+<nav class="menu" aria-label="Menu principal">
+<a href="#servicos">Serviços</a>
+<a href="#processo">Como funciona</a>
+<a href="#pacotes">Pacotes</a>
+<a href="#duvidas">Dúvidas</a>
+<a class="btn btn-yellow" href="#orcamento">Pedir orçamento</a>
+</nav>
+</div>
+</header>
+
+<section id="topo" class="wrap hero">
+<div class="hero-text">
+<span class="tag" style="align-self:flex-start;background:var(--ink);color:var(--yellow);margin:0">● PROJETOS EM AUTOCAD · DWG · PDF</span>
+<h1>Sua planta <span class="hl">pronta</span> e no traço certo.</h1>
+<p>Planta baixa, projeto arquitetônico, regularização de imóvel, layout de canteiro e conversão para DWG. Você manda o esboço ou as medidas e recebe o desenho pronto para aprovar, construir ou apresentar.</p>
+<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:8px">
+<a class="btn btn-yellow" href="#orcamento">Quero meu orçamento grátis →</a>
+<a class="btn btn-white" href="https://ig.me/m/tracotecnico.cad" target="_blank" rel="noopener">Chamar no Direct</a>
+</div>
+<div class="chips"><span>✓ DWG + PDF</span><span>✓ REVISÕES INCLUÍDAS</span><span>✓ 100% ONLINE</span></div>
+</div>
+<div class="hero-art">
+<div class="plan-card">
+<svg viewBox="0 0 492 380" style="width:100%;height:auto;display:block" role="img" aria-label="Exemplo ilustrativo de planta baixa com cotas">
+<g stroke="#FFFFFF" fill="none">
+<rect x="40" y="40" width="400" height="290" stroke-width="5"/>
+<line x1="220" y1="40" x2="220" y2="200" stroke-width="3"/><line x1="40" y1="200" x2="170" y2="200" stroke-width="3"/>
+<line x1="210" y1="200" x2="300" y2="200" stroke-width="3"/><line x1="300" y1="200" x2="300" y2="330" stroke-width="3"/>
+<line x1="340" y1="200" x2="440" y2="200" stroke-width="3"/>
+<path d="M170 200 A40 40 0 0 1 210 160" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M300 240 A40 40 0 0 0 340 200" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="250" y="60" width="70" height="40" stroke-width="1.2"/><rect x="60" y="230" width="90" height="50" stroke-width="1.2"/>
+<circle cx="380" cy="270" r="18" stroke-width="1.2"/>
+</g>
+<g stroke="#FFD21F" stroke-width="1.5" fill="none">
+<line x1="40" y1="18" x2="440" y2="18"/><line x1="40" y1="11" x2="40" y2="25"/><line x1="440" y1="11" x2="440" y2="25"/>
+<line x1="462" y1="40" x2="462" y2="330"/><line x1="455" y1="40" x2="469" y2="40"/><line x1="455" y1="330" x2="469" y2="330"/>
+</g>
+<g fill="#FFD21F" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600">
+<text x="220" y="12" text-anchor="middle">12,00 m</text>
+<text x="476" y="190" transform="rotate(90 476 190)" text-anchor="middle">8,70 m</text>
+</g>
+<g fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="12">
+<text x="130" y="120" text-anchor="middle">SALA</text><text x="130" y="136" text-anchor="middle" font-size="10" fill="#9FB0FF">A = 28,40 m²</text>
+<text x="330" y="140" text-anchor="middle">COZINHA</text><text x="330" y="156" text-anchor="middle" font-size="10" fill="#9FB0FF">A = 18,10 m²</text>
+<text x="170" y="270" text-anchor="middle">QUARTO</text><text x="370" y="240" text-anchor="middle">BWC</text>
+</g>
+</svg>
+<p><span>PLANTA BAIXA · ESC. 1:50</span><span>EXEMPLO ILUSTRATIVO</span></p>
+</div>
+</div>
+</section>
+</div>
+
+<div class="band"><div class="wrap">
+<span>AUTOCAD 2D</span><span aria-hidden="true">✦</span><span>DWG / DXF</span><span aria-hidden="true">✦</span><span>PDF EM ESCALA</span><span aria-hidden="true">✦</span><span>NORMAS ABNT</span><span aria-hidden="true">✦</span><span>3D SOB CONSULTA</span>
+</div></div>
+
+<main>
+<section id="servicos" class="block" style="padding-bottom:56px">
+<div class="wrap">
+<div class="sec-head">
+<div><span class="tag" style="background:var(--blue);color:var(--white)">SERVIÇOS</span>
+<h2 class="title">Tudo o que o seu projeto precisa no papel.</h2></div>
+<p class="lead" style="max-width:380px">Do primeiro rascunho ao desenho final para aprovação na prefeitura ou para a obra.</p>
+</div>
+<div class="cards">
+<article class="card"><span class="code c-blue">01 / PB</span><h3>Planta baixa</h3><p>Desenho da planta a partir de croqui, medidas ou imóvel existente, com cotas, áreas e legenda.</p></article>
+<article class="card"><span class="code c-yellow">02 / ARQ</span><h3>Projeto arquitetônico</h3><p>Plantas, cortes, fachadas, cobertura e implantação para casas, comércios e reformas.</p></article>
+<article class="card"><span class="code c-orange">03 / REG</span><h3>Regularização de imóvel</h3><p>Levantamento e desenho do existente (as built) para averbação e aprovação na prefeitura.</p></article>
+<article class="card"><span class="code c-blue">04 / INC</span><h3>Sistema de combate a incêndio</h3><p>Desenho de extintores, hidrantes, rotas de fuga e sinalização, a partir do projeto do responsável técnico.</p></article>
+<article class="card"><span class="code c-yellow">05 / SST</span><h3>Layout de canteiro e segurança</h3><p>Canteiro de obras, rotas de fuga, mapa de riscos e sinalização para PGR e treinamentos.</p></article>
+<article class="card"><span class="code c-orange">06 / CONV</span><h3>Conversão para DWG</h3><p>Plantas em papel, foto ou PDF transformadas em arquivo editável no AutoCAD, em escala.</p></article>
+<article class="card"><span class="code c-blue">07 / INT</span><h3>Layout de interiores</h3><p>Distribuição de móveis, marcenaria e circulação para apartamentos, escritórios e lojas.</p></article>
+<article class="card"><span class="code c-yellow">08 / PADR</span><h3>Padronização de pranchas</h3><p>Carimbo, layers, penas e normas aplicados aos seus arquivos e aos de sua empresa.</p></article>
+<article class="card"><span class="code c-orange">09 / 3D</span><h3>Modelagem e imagens 3D</h3><p>Volumetria e imagens para apresentar o projeto ao cliente antes da obra começar.</p></article>
+</div>
+</div>
+</section>
+
+<section class="audience">
+<div class="wrap">
+<p>Atendo:</p>
+<div class="pills"><span>Proprietários e quem vai construir</span><span>Engenheiros e arquitetos (terceirização)</span><span>Construtoras e empreiteiras</span><span>Técnicos de Segurança do Trabalho</span><span>Lojas, escritórios e comércios</span></div>
+</div>
+</section>
+
+<section id="processo" class="block dark">
+<div class="wrap">
+<span class="tag" style="background:var(--yellow);color:var(--ink)">COMO FUNCIONA</span>
+<h2 class="title" style="max-width:720px">Quatro etapas. Zero complicação.</h2>
+<ol class="steps">
+<li><span class="n">01</span><h3>Você envia</h3><p>Croqui, fotos, medidas ou a planta antiga, pelo formulário ou pelo Direct do Instagram.</p></li>
+<li><span class="n">02</span><h3>Orçamento</h3><p>Você recebe valor, prazo e o que será entregue, sem compromisso.</p></li>
+<li><span class="n">03</span><h3>Desenho</h3><p>O projeto é desenhado no AutoCAD seguindo as normas e enviado para sua revisão.</p></li>
+<li><span class="n">04</span><h3>Entrega final</h3><p>Ajustes feitos, você recebe os arquivos DWG e PDF em escala, prontos para usar.</p></li>
+</ol>
+</div>
+</section>
+
+<section id="pacotes" class="block plans-sec grid-bg">
+<div class="wrap">
+<span class="tag" style="background:var(--ink);color:var(--yellow)">PACOTES</span>
+<h2 class="title">Escolha o seu ponto de partida.</h2>
+<p class="lead" style="color:var(--soft);margin-top:16px;max-width:600px">O valor final depende da área e da complexidade.</p>
+<div class="plans">
+<article class="plan"><span class="ptag">BÁSICO</span><h3>Planta Simples</h3><p class="price"><span style="display:block;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0;margin-bottom:2px">A partir de</span>R$ 500</p>
+<ul><li>Planta baixa com cotas e áreas</li><li>Até 1 pavimento</li><li>1 rodada de revisão</li><li>Arquivos DWG + PDF</li></ul>
+<a class="btn btn-ink" href="#orcamento" data-servico="Planta baixa">Quero este pacote →</a></article>
+<article class="plan featured"><span class="ptag">★ MAIS PEDIDO</span><h3>Projeto Completo</h3><p class="price"><span style="display:block;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0;margin-bottom:2px">A partir de</span>R$ 1.000</p>
+<ul><li>Plantas, cortes e fachadas</li><li>Planta de cobertura e situação</li><li>2 rodadas de revisão</li><li>Pranchas no padrão da prefeitura</li></ul>
+<a class="btn btn-ink" href="#orcamento" data-servico="Projeto arquitetônico completo">Quero este pacote →</a></article>
+<article class="plan"><span class="ptag">EMPRESAS</span><h3>Demanda Contínua</h3><p class="price">Sob consulta</p>
+<ul><li>Pacote mensal de horas de desenho</li><li>Padronização de pranchas</li><li>Layouts de canteiro e SST</li><li>Prioridade no prazo</li></ul>
+<a class="btn btn-ink" href="#orcamento" data-servico="Outro">Quero este pacote →</a></article>
+</div>
+</div>
+</section>
+
+<section id="duvidas" class="block">
+<div class="wrap faq">
+<div><span class="tag" style="background:var(--orange);color:var(--ink)">DÚVIDAS</span><h2 class="title">Perguntas frequentes.</h2></div>
+<div class="faq-list">
+<details><summary>Vocês assinam o projeto (ART/RRT)?</summary><p>O desenho é feito por nós; a responsabilidade técnica e a ART/RRT ficam com o engenheiro ou arquiteto responsável, que pode ser você ou um parceiro indicado.</p></details>
+<details><summary>Preciso ir até o imóvel para medir?</summary><p>Não necessariamente. Você pode enviar as medidas e fotos. Se precisar de levantamento no local, isso é combinado no orçamento.</p></details>
+<details><summary>Em quanto tempo recebo o projeto?</summary><p>Depende do tamanho. Uma planta simples costuma levar de 2 a 3 dias úteis; projetos completos são definidos no orçamento.</p></details>
+<details><summary>Em quais formatos recebo os arquivos?</summary><p>DWG (AutoCAD) editável e PDF em escala, prontos para imprimir. DXF e outras versões do AutoCAD sob pedido.</p></details>
+<details><summary>Atende fora da minha cidade?</summary><p>Sim. Todo o atendimento é online, então atendo qualquer cidade do Brasil.</p></details>
+<details><summary>Como é o pagamento?</summary><p>50% para iniciar e 50% na entrega final.</p></details>
+</div>
+</div>
+</section>
+
+<section id="orcamento" class="block quote">
+<div class="wrap">
+<div class="quote-text">
+<span class="tag" style="align-self:flex-start;background:var(--ink);color:var(--white);margin:0">ORÇAMENTO GRÁTIS</span>
+<h2>Bora tirar o seu projeto do papel?</h2>
+<p class="lead">Preencha o formulário e anexe fotos do imóvel, do croqui ou a planta antiga. O pedido chega direto para mim e eu respondo com prazo e valor.</p>
+<div class="contact">
+<a class="btn btn-ink" href="https://ig.me/m/tracotecnico.cad" target="_blank" rel="noopener">Chamar no Direct: @tracotecnico.cad</a>
+<a class="mail" href="mailto:tracotecnico.cad@gmail.com">E-mail: tracotecnico.cad@gmail.com</a>
+</div>
+</div>
+
+<!-- O FormSubmit recebe o formulário e envia tudo, com os anexos, para o e-mail abaixo -->
+<form class="qform" id="form-orcamento" action="https://formsubmit.co/tracotecnico.cad@gmail.com" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_subject" id="f-subject" value="Novo pedido de orçamento — Traço Técnico">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" id="f-next" value="">
+<div class="honey" aria-hidden="true"><label>Não preencha<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+
+<div class="row">
+<label><span>Nome <span class="req" aria-hidden="true">*</span></span><input type="text" name="Nome" id="f-nome" placeholder="Seu nome" required autocomplete="name"></label>
+<label>WhatsApp<input type="tel" name="WhatsApp" placeholder="(00) 00000-0000" autocomplete="tel"></label>
+</div>
+<label><span>Seu e-mail <span class="req" aria-hidden="true">*</span></span><input type="email" name="email" placeholder="voce@email.com" required autocomplete="email"></label>
+<div class="row">
+<label>Tipo de serviço
+<select name="Serviço" id="f-servico">
+<option>Planta baixa</option>
+<option>Projeto arquitetônico completo</option>
+<option>Regularização de imóvel</option>
+<option>Sistema de combate a incêndio</option>
+<option>Layout de canteiro / segurança</option>
+<option>Conversão para DWG</option>
+<option>Layout de interiores</option>
+<option>Outro</option>
+</select>
+</label>
+<label>Área aproximada (m²)<input type="text" name="Área (m²)" placeholder="Ex.: 120" inputmode="decimal"></label>
+</div>
+<label>Cidade / UF<input type="text" name="Cidade" placeholder="Ex.: São Paulo / SP" autocomplete="address-level2"></label>
+<label><span>Descreva o projeto <span class="req" aria-hidden="true">*</span></span><textarea name="Descrição" rows="4" placeholder="Tipo de imóvel, o que você precisa, prazo desejado…" required></textarea></label>
+
+<div class="files">
+<label style="gap:4px">Anexos (opcional)<p>Fotos do imóvel, croqui, planta antiga ou PDF. Até 3 arquivos, somando no máximo 10 MB.</p></label>
+<input type="file" name="anexo1" accept="image/*,.pdf,.dwg,.dxf" aria-label="Anexo 1">
+<input type="file" name="anexo2" accept="image/*,.pdf,.dwg,.dxf" aria-label="Anexo 2">
+<input type="file" name="anexo3" accept="image/*,.pdf,.dwg,.dxf" aria-label="Anexo 3">
+</div>
+
+<p class="error" id="f-erro" role="alert"></p>
+<button type="submit" class="btn btn-blue" id="f-enviar" style="font-family:var(--display);font-weight:800;font-size:19px;min-height:58px">Enviar pedido de orçamento →</button>
+<p class="hint">Seus dados são usados só para responder o seu orçamento.</p>
+</form>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<span><svg width="24" height="24" viewBox="0 0 36 36" aria-hidden="true"><rect x="1" y="1" width="34" height="34" fill="none" stroke="#FFFFFF" stroke-width="2"/><path d="M8 28 L8 8 L28 8" fill="none" stroke="#FFD21F" stroke-width="3.5"/><path d="M14 28 L28 28 L28 14" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg>TRAÇO TÉCNICO · PROJETOS E DESENHO CAD</span>
+<span><a href="https://instagram.com/tracotecnico.cad" target="_blank" rel="noopener" style="color:var(--soft2)">@tracotecnico.cad</a> · © 2026</span>
+</div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('form-orcamento');
+  var erro = document.getElementById('f-erro');
+  var botao = document.getElementById('f-enviar');
+  var LIMITE = 10 * 1024 * 1024; // 10 MB somando todos os anexos
+
+  // Depois de enviar, o visitante volta para a página de obrigado deste site
+  document.getElementById('f-next').value = window.location.origin + '/obrigado.html';
+
+  // Botões "Quero este pacote" já escolhem o serviço no formulário
+  document.querySelectorAll('[data-servico]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.getElementById('f-servico').value = a.getAttribute('data-servico');
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    erro.style.display = 'none';
+    var total = 0;
+    form.querySelectorAll('input[type=file]').forEach(function (inp) {
+      if (inp.files && inp.files[0]) total += inp.files[0].size;
+    });
+    if (total > LIMITE) {
+      e.preventDefault();
+      erro.textContent = 'Os anexos somam ' + (total / 1048576).toFixed(1) + ' MB. O limite é 10 MB: envie fotos menores ou menos arquivos.';
+      erro.style.display = 'block';
+      return;
+    }
+    var nome = document.getElementById('f-nome').value.trim();
+    var servico = document.getElementById('f-servico').value;
+    document.getElementById('f-subject').value = 'Orçamento: ' + servico + (nome ? ' — ' + nome : '');
+    botao.disabled = true;
+    botao.textContent = 'Enviando…';
+  });
+
+  // Se a pessoa voltar para a página, o botão volta ao normal
+  window.addEventListener('pageshow', function () {
+    botao.disabled = false;
+    botao.textContent = 'Enviar pedido de orçamento →';
+  });
+})();
+</script>
+</body>
+</html>
